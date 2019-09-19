@@ -2,7 +2,10 @@ package com.example.sweater.domain;
 
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity // This tells Hibernate to make a table out of this class
 //@Table(name="msg")
@@ -11,7 +14,10 @@ public class Message {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Please fill in the message")
+    @Length(max=2048, message = "Message is too long")
     private String text;
+    @Length(max=255, message = "Tag cannot be longer than 255")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
